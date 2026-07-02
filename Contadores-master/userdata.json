@@ -1,0 +1,536 @@
+{
+  "nombre": "Anónimo",
+  "edad": "25",
+  "sexo": "Seleccionar...",
+  "altura": "170",
+  "peso": "70",
+  "ejercicio": null,
+  "plan_sugerido": null,
+  "membresia": "Premium Mensual",
+  "membresia_activa": true,
+  "rutina_ia": {
+    "tipo": "Mensual (4 semanas)",
+    "duracion": "4 semanas",
+    "estructura": [
+      {
+        "semana_num": 1,
+        "dias": [
+          {
+            "semana": 1,
+            "dia": "Lunes",
+            "ejercicios": [
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "15"
+              },
+              {
+                "nombre": "Flexiones",
+                "series": "3",
+                "reps": "10"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 1,
+            "dia": "Martes",
+            "ejercicios": [
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "5"
+              },
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "15"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 1,
+            "dia": "Miércoles",
+            "ejercicios": [
+              {
+                "nombre": "Flexiones",
+                "series": "4",
+                "reps": "10"
+              },
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "5"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 1,
+            "dia": "Jueves",
+            "ejercicios": [
+              {
+                "nombre": "Sentadillas",
+                "series": "4",
+                "reps": "15"
+              },
+              {
+                "nombre": "Flexiones",
+                "series": "3",
+                "reps": "12"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 1,
+            "dia": "Viernes",
+            "ejercicios": [
+              {
+                "nombre": "Dominadas",
+                "series": "4",
+                "reps": "5"
+              },
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "20"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 1,
+            "dia": "Sábado",
+            "ejercicios": [
+              {
+                "nombre": "Flexiones",
+                "series": "4",
+                "reps": "12"
+              },
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "6"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 1,
+            "dia": "Domingo",
+            "ejercicios": [],
+            "tiempo": "Descanso",
+            "estado": "Pendiente"
+          }
+        ]
+      },
+      {
+        "semana_num": 2,
+        "dias": [
+          {
+            "semana": 2,
+            "dia": "Lunes",
+            "ejercicios": [
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "15"
+              },
+              {
+                "nombre": "Flexiones",
+                "series": "3",
+                "reps": "10"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 2,
+            "dia": "Martes",
+            "ejercicios": [
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "5"
+              },
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "15"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 2,
+            "dia": "Miércoles",
+            "ejercicios": [
+              {
+                "nombre": "Flexiones",
+                "series": "4",
+                "reps": "10"
+              },
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "5"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 2,
+            "dia": "Jueves",
+            "ejercicios": [
+              {
+                "nombre": "Sentadillas",
+                "series": "4",
+                "reps": "15"
+              },
+              {
+                "nombre": "Flexiones",
+                "series": "3",
+                "reps": "12"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 2,
+            "dia": "Viernes",
+            "ejercicios": [
+              {
+                "nombre": "Dominadas",
+                "series": "4",
+                "reps": "5"
+              },
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "20"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 2,
+            "dia": "Sábado",
+            "ejercicios": [
+              {
+                "nombre": "Flexiones",
+                "series": "4",
+                "reps": "12"
+              },
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "6"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 2,
+            "dia": "Domingo",
+            "ejercicios": [],
+            "tiempo": "Descanso",
+            "estado": "Pendiente"
+          }
+        ]
+      },
+      {
+        "semana_num": 3,
+        "dias": [
+          {
+            "semana": 3,
+            "dia": "Lunes",
+            "ejercicios": [
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "15"
+              },
+              {
+                "nombre": "Flexiones",
+                "series": "3",
+                "reps": "10"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 3,
+            "dia": "Martes",
+            "ejercicios": [
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "5"
+              },
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "15"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 3,
+            "dia": "Miércoles",
+            "ejercicios": [
+              {
+                "nombre": "Flexiones",
+                "series": "4",
+                "reps": "10"
+              },
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "5"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 3,
+            "dia": "Jueves",
+            "ejercicios": [
+              {
+                "nombre": "Sentadillas",
+                "series": "4",
+                "reps": "15"
+              },
+              {
+                "nombre": "Flexiones",
+                "series": "3",
+                "reps": "12"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 3,
+            "dia": "Viernes",
+            "ejercicios": [
+              {
+                "nombre": "Dominadas",
+                "series": "4",
+                "reps": "5"
+              },
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "20"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 3,
+            "dia": "Sábado",
+            "ejercicios": [
+              {
+                "nombre": "Flexiones",
+                "series": "4",
+                "reps": "12"
+              },
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "6"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 3,
+            "dia": "Domingo",
+            "ejercicios": [],
+            "tiempo": "Descanso",
+            "estado": "Pendiente"
+          }
+        ]
+      },
+      {
+        "semana_num": 4,
+        "dias": [
+          {
+            "semana": 4,
+            "dia": "Lunes",
+            "ejercicios": [
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "15"
+              },
+              {
+                "nombre": "Flexiones",
+                "series": "3",
+                "reps": "10"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 4,
+            "dia": "Martes",
+            "ejercicios": [
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "5"
+              },
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "15"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 4,
+            "dia": "Miércoles",
+            "ejercicios": [
+              {
+                "nombre": "Flexiones",
+                "series": "4",
+                "reps": "10"
+              },
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "5"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 4,
+            "dia": "Jueves",
+            "ejercicios": [
+              {
+                "nombre": "Sentadillas",
+                "series": "4",
+                "reps": "15"
+              },
+              {
+                "nombre": "Flexiones",
+                "series": "3",
+                "reps": "12"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 4,
+            "dia": "Viernes",
+            "ejercicios": [
+              {
+                "nombre": "Dominadas",
+                "series": "4",
+                "reps": "5"
+              },
+              {
+                "nombre": "Sentadillas",
+                "series": "3",
+                "reps": "20"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 4,
+            "dia": "Sábado",
+            "ejercicios": [
+              {
+                "nombre": "Flexiones",
+                "series": "4",
+                "reps": "12"
+              },
+              {
+                "nombre": "Dominadas",
+                "series": "3",
+                "reps": "6"
+              }
+            ],
+            "tiempo": "20-30 min",
+            "estado": "Pendiente"
+          },
+          {
+            "semana": 4,
+            "dia": "Domingo",
+            "ejercicios": [],
+            "tiempo": "Descanso",
+            "estado": "Pendiente"
+          }
+        ]
+      }
+    ],
+    "total_dias": 28
+  },
+  "historial_sesiones": [
+    {
+      "fecha": "2026-07-01",
+      "ejercicio": "Sentadillas",
+      "reps": 0,
+      "dia_semana": "Miércoles"
+    },
+    {
+      "fecha": "2026-07-01",
+      "ejercicio": "Sentadillas",
+      "reps": 0,
+      "dia_semana": "Miércoles"
+    },
+    {
+      "fecha": "2026-07-01",
+      "ejercicio": "Sentadillas",
+      "reps": 0,
+      "dia_semana": "Miércoles"
+    }
+  ],
+  "reps_totales": 0,
+  "total_sesiones": 3,
+  "racha_actual": 1,
+  "ultima_fecha_entreno": "2026-07-01",
+  "tema": "Red",
+  "plan_temp": "Premium Mensual",
+  "precio_temp": 9.99,
+  "membresia_inicio": "2026-07-01",
+  "membresia_expira": "2026-07-31",
+  "progreso_rutina": {
+    "Premium Mensual": {
+      "marcas": [],
+      "completados": 0
+    }
+  },
+  "proveedor_login": "Google",
+  "correo_temp": "usuario@gmail.com",
+  "theme_style": "Dark"
+}
