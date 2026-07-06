@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Descargar el codigo del repositorio
@@ -18,11 +18,25 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Compilar con Buildozer
-      uses: ArtemGovorov/buildozer-action@v1
-      with:
-        command: buildozer -v android debug
-        repository_root: Contadores-master
+    - name: Instalar dependencias del sistema de Linux
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libssl-dev libffi-dev libgdbm-dev libsqlite3-dev libbz2-dev liblzma-dev tk-dev libdb-dev readline-common libgstreamer1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good
+
+    - name: Instalar Buildozer y Cython
+      run: |
+        pip install --user --upgrade buildozer cython virtualenv
+
+    - name: Compilar APK con Buildozer
+      run: |
+        cd Contadores-master
+        # Si no existe buildozer.spec, lo inicializamos de emergencia
+        if [ ! -f buildozer.spec ]; then
+          ~/.local/bin/buildozer init
+          # Forzamos los requerimientos mínimos de tu app en el archivo generado
+          sed -i 's/requirements = python3,kivy/requirements = python3,kivy,opencv-python,mediapipe/g' buildozer.spec
+        fi
+        ~/.local/bin/buildozer -v android debug
 
     - name: Guardar y subir el APK generado
       uses: actions/upload-artifact@v4
