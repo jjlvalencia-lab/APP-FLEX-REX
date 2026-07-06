@@ -7,7 +7,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,mp4,json
 version = 0.1
 
-# REQUISITOS CORREGIDOS (Se removió ffpyplayer para evitar fallos de compilación)
+# Requisitos limpios
 requirements = python3,kivy==2.3.1,kivymd==1.2.0,plyer
 
 orientation = portrait
@@ -16,13 +16,16 @@ android.permissions = INTERNET,CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORA
 icon.filename = logo_nuevo.png
 presplash.filename = logo_nuevo.png
 
-# Configuración de Android Optimizada
+# CONFIGURACIÓN SINCRONIZADA CON EL SERVIDOR DE GITHUB
 android.archs = arm64-v8a
 android.api = 33
 android.minapi = 21
-android.ndk = 25b
-android.logcat_filters = *:S python:D
+
+# Dejar vacío para que Buildozer use el NDK correcto del sistema de forma automática
+android.ndk = 
 android.accept_sdk_license = True
+
+android.logcat_filters = *:S python:D
 
 [buildozer]
 log_level = 2
