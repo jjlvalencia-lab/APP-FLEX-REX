@@ -35,28 +35,21 @@ jobs:
       run: |
         pip install --user --upgrade buildozer cython virtualenv
 
-    - name: Fix Buildozer SDK Path Bug (Symlink)
-      run: |
-        # Enlazar el sdkmanager moderno para pasar la validación inicial
-        mkdir -p /home/runner/.buildozer/android/platform/android-sdk/tools/bin
-        ln -s /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager /home/runner/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager
-        
-        # Copiar licencias aprobadas del sistema
-        mkdir -p /home/runner/.buildozer/android/platform/android-sdk/licenses
-        cp -r /usr/local/lib/android/sdk/licenses/* /home/runner/.buildozer/android/platform/android-sdk/licenses/ || true
-
     - name: Compile APK via Buildozer
       run: |
         cd Contadores-master
         
-        # Limpiar variables heredadas del sistema que apuntan al NDK 27 viejo
+        # Sincronizar de forma estricta las herramientas nativas preinstaladas
+        export JAVA_HOME=$JAVA_HOME_17_X64
+        export ANDROID_HOME=$ANDROID_SDK_ROOT
+        
+        # Agregar el sdkmanager moderno del sistema al PATH para que Buildozer lo encuentre sí o sí
+        export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$JAVA_HOME/bin:$PATH
+        
+        # Limpiar referencias antiguas del NDK para evitar conflictos de API
         unset ANDROID_NDK
         unset ANDROID_NDK_HOME
         unset ANDROID_NDK_ROOT
-        
-        # Configurar Java nativo
-        export JAVA_HOME=$JAVA_HOME_17_X64
-        export PATH=$JAVA_HOME/bin:$PATH
         
         ~/.local/bin/buildozer android debug
 
