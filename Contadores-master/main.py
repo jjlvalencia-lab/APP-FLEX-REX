@@ -4,7 +4,11 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.image import Image
-from kivy.uix.camera import Camera
+try:
+    from kivy.uix.camera import Camera
+except Exception as e:
+    Camera = None
+    print(f"[FlexRex] Camera no disponible en este dispositivo/compilacion: {e}")
 from kivy.uix.widget import Widget
 from kivy.uix.gridlayout import GridLayout
 from kivy.animation import Animation
@@ -567,12 +571,23 @@ class PantallaEntrenamiento(Screen):
             self.lbl_ejercicio.text = "⚠️ Sensor no disponible, usa los botones manuales"
             print(f"Error al iniciar el acelerómetro: {e}")
 
-        try:
-            self.camera_widget.play = True
-        except Exception as e:
-            print(f"[FlexRex] Error al iniciar la camara: {e}")
+        self.activar_camara()
 
         Clock.schedule_interval(self.leer_sensor, 1.0 / 20.0)
+
+    def activar_camara(self):
+        if Camera is None:
+            return
+        try:
+            if self.camera_widget is None:
+                self.camera_widget = Camera(play=False, size_hint=(0.95, 0.95), pos_hint={"center_x": 0.5, "center_y": 0.5}, resolution=(640, 480))
+                scanner_container = self.scanner_widget.parent
+                scanner_container.add_widget(self.camera_widget, index=len(scanner_container.children))
+            self.camera_widget.play = True
+            self.camera_disponible = True
+        except Exception as e:
+            self.camera_disponible = False
+            print(f"[FlexRex] No se pudo activar la camara: {e}")
 
     def on_leave(self, *args):
         Clock.unschedule(self.leer_sensor)
@@ -584,7 +599,8 @@ class PantallaEntrenamiento(Screen):
         except Exception:
             pass
         try:
-            self.camera_widget.play = False
+            if self.camera_widget is not None:
+                self.camera_widget.play = False
         except Exception:
             pass
 
@@ -596,12 +612,15 @@ class PantallaEntrenamiento(Screen):
 
         scanner_container = FloatLayout(size_hint=(1, 0.75), pos_hint={"center_x": 0.5, "top": 0.98})
 
-        # Cámara real del teléfono (antes solo había un efecto simulado sin imagen real)
-        self.camera_widget = Camera(play=False, size_hint=(0.95, 0.95), pos_hint={"center_x": 0.5, "center_y": 0.5}, resolution=(640, 480))
-        scanner_container.add_widget(self.camera_widget)
+        # Espacio reservado para la cámara real; se crea de forma segura en on_enter,
+        # así que si falla, la app sigue funcionando con el efecto simulado de respaldo.
+        self.camera_widget = None
+        self.camera_disponible = False
 
         self.scanner_widget = Widget(size_hint=(0.95, 0.95), pos_hint={"center_x": 0.5, "center_y": 0.5})
         with self.scanner_widget.canvas:
+            Color(0.08, 0.08, 0.12, 1)
+            self.scanner_bg = Rectangle(pos=self.scanner_widget.pos, size=self.scanner_widget.size)
             Color(0, 0.5, 1, 0.25)
             self.scanner_line = Rectangle(pos=(self.scanner_widget.x, self.scanner_widget.y), size=(self.scanner_widget.width, 6))
             Color(0.5, 0.8, 1, 0.18)
@@ -654,6 +673,8 @@ class PantallaEntrenamiento(Screen):
         animar_botones_en_layout(layout)
 
     def _update_scanner_canvas(self, *args):
+        self.scanner_bg.pos = self.scanner_widget.pos
+        self.scanner_bg.size = self.scanner_widget.size
         self.scanner_line.size = (self.scanner_widget.width, 6)
         self.scanner_line.pos = (self.scanner_widget.x, self.scanner_widget.y + self.scanner_line_y)
         self.scanner_outline.rectangle = (self.scanner_widget.x, self.scanner_widget.y, self.scanner_widget.width, self.scanner_widget.height)
