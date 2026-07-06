@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.image import Image
+from kivy.uix.camera import Camera
 from kivy.uix.widget import Widget
 from kivy.uix.gridlayout import GridLayout
 from kivy.animation import Animation
@@ -100,6 +101,17 @@ def animar_boton_en_movimiento(boton, delay=0):
 
     Clock.schedule_once(iniciar_animacion, delay)
     return boton
+
+def hacer_texto_ajustable(label):
+    """Evita que el texto de un MDLabel se salga de su ancho y se monte sobre widgets vecinos."""
+    def actualizar(instancia, valor):
+        instancia.text_size = (valor[0], None)
+        instancia.texture_update()
+        instancia.height = max(instancia.texture_size[1], instancia.height)
+    label.bind(size=actualizar)
+    label.text_size = (label.width or 1, None)
+    return label
+
 
 def animar_botones_en_layout(layout, delay_base=0.04):
     botones = (MDRaisedButton, MDFlatButton, MDIconButton, MDFillRoundFlatButton)
@@ -503,15 +515,15 @@ class PantallaEjercicios(Screen):
         
         contenido = BoxLayout(orientation='horizontal', spacing=10)
         tutorial_placeholder = BoxLayout(orientation='vertical', padding=12, spacing=8, size_hint_x=0.4)
-        tutorial_placeholder.add_widget(MDLabel(text="Video de tutorial no disponible en Android", halign="center", theme_text_color="Secondary", size_hint_y=None, height=40))
-        tutorial_placeholder.add_widget(MDLabel(text="Usa el botón de simulación para practicar repeticiones reales desde tu teléfono.", halign="center", theme_text_color="Secondary", size_hint_y=None, height=50))
-        tutorial_placeholder.add_widget(MDLabel(text="Sigue las instrucciones y aumenta la carga poco a poco.", halign="center", theme_text_color="Secondary"))
+        tutorial_placeholder.add_widget(hacer_texto_ajustable(MDLabel(text="Video de tutorial no disponible en Android", halign="center", theme_text_color="Secondary", size_hint_y=None, height=40)))
+        tutorial_placeholder.add_widget(hacer_texto_ajustable(MDLabel(text="Usa el botón de simulación para practicar repeticiones reales desde tu teléfono.", halign="center", theme_text_color="Secondary", size_hint_y=None, height=50)))
+        tutorial_placeholder.add_widget(hacer_texto_ajustable(MDLabel(text="Sigue las instrucciones y aumenta la carga poco a poco.", halign="center", theme_text_color="Secondary", size_hint_y=None, height=50)))
         contenido.add_widget(tutorial_placeholder)
         
         pasos_layout = BoxLayout(orientation='vertical', spacing=4, size_hint_x=0.6)
         pasos = instrucciones.get(ejercicio, ["Selecciona un ejercicio para ver instrucciones."])
         for paso in pasos:
-            pasos_layout.add_widget(MDLabel(text=paso, font_style="Caption", theme_text_color="Primary", size_hint_y=None, height=35))
+            pasos_layout.add_widget(hacer_texto_ajustable(MDLabel(text=paso, font_style="Caption", theme_text_color="Primary", size_hint_y=None, height=35)))
         contenido.add_widget(pasos_layout)
         
         card_vid.add_widget(contenido)
@@ -555,6 +567,11 @@ class PantallaEntrenamiento(Screen):
             self.lbl_ejercicio.text = "⚠️ Sensor no disponible, usa los botones manuales"
             print(f"Error al iniciar el acelerómetro: {e}")
 
+        try:
+            self.camera_widget.play = True
+        except Exception as e:
+            print(f"[FlexRex] Error al iniciar la camara: {e}")
+
         Clock.schedule_interval(self.leer_sensor, 1.0 / 20.0)
 
     def on_leave(self, *args):
@@ -566,6 +583,10 @@ class PantallaEntrenamiento(Screen):
             accelerometer.disable()
         except Exception:
             pass
+        try:
+            self.camera_widget.play = False
+        except Exception:
+            pass
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -574,10 +595,13 @@ class PantallaEntrenamiento(Screen):
         layout = FloatLayout()
 
         scanner_container = FloatLayout(size_hint=(1, 0.75), pos_hint={"center_x": 0.5, "top": 0.98})
+
+        # Cámara real del teléfono (antes solo había un efecto simulado sin imagen real)
+        self.camera_widget = Camera(play=False, size_hint=(0.95, 0.95), pos_hint={"center_x": 0.5, "center_y": 0.5}, resolution=(640, 480))
+        scanner_container.add_widget(self.camera_widget)
+
         self.scanner_widget = Widget(size_hint=(0.95, 0.95), pos_hint={"center_x": 0.5, "center_y": 0.5})
         with self.scanner_widget.canvas:
-            Color(0.08, 0.08, 0.12, 1)
-            self.scanner_bg = Rectangle(pos=self.scanner_widget.pos, size=self.scanner_widget.size)
             Color(0, 0.5, 1, 0.25)
             self.scanner_line = Rectangle(pos=(self.scanner_widget.x, self.scanner_widget.y), size=(self.scanner_widget.width, 6))
             Color(0.5, 0.8, 1, 0.18)
@@ -630,8 +654,6 @@ class PantallaEntrenamiento(Screen):
         animar_botones_en_layout(layout)
 
     def _update_scanner_canvas(self, *args):
-        self.scanner_bg.pos = self.scanner_widget.pos
-        self.scanner_bg.size = self.scanner_widget.size
         self.scanner_line.size = (self.scanner_widget.width, 6)
         self.scanner_line.pos = (self.scanner_widget.x, self.scanner_widget.y + self.scanner_line_y)
         self.scanner_outline.rectangle = (self.scanner_widget.x, self.scanner_widget.y, self.scanner_widget.width, self.scanner_widget.height)
@@ -1093,4 +1115,3 @@ class FlexRexApp(MDApp):
 
 if __name__ == "__main__":
     FlexRexApp().run()
-    
