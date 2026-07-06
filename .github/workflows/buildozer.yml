@@ -37,6 +37,8 @@ jobs:
 
     - name: Compile APK via Buildozer
       run: |
+        cd Contadores-master
+
         export JAVA_HOME=$JAVA_HOME_17_X64
         export ANDROID_HOME=$ANDROID_SDK_ROOT
         export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$JAVA_HOME/bin:$PATH
@@ -51,4 +53,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: FlexRex-APK
-        path: .buildozer/android/platform/build-arm64-v8a/dists/flexrex/build/outputs/apk/debug/*.apk
+        path: Contadores-master/.buildozer/android/platform/build-arm64-v8a/dists/flexrex/build/outputs/apk/debug/*.apk
