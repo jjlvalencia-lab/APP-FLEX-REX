@@ -13,6 +13,12 @@ jobs:
     - name: Checkout repository code
       uses: actions/checkout@v4
 
+    - name: Set up Java 17 Development Kit
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
     - name: Set up Python environment
       uses: actions/setup-python@v5
       with:
@@ -21,7 +27,7 @@ jobs:
     - name: Install Linux system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libssl-dev libffi-dev libgdbm-dev libsqlite3-dev libbz2-dev liblzma-dev tk-dev libdb-dev readline-common
+        sudo apt-get install -y git zip unzip python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libssl-dev libffi-dev libgdbm-dev libsqlite3-dev libbz2-dev liblzma-dev tk-dev libdb-dev readline-common
 
     - name: Install Buildozer and Cython
       run: |
@@ -30,8 +36,7 @@ jobs:
     - name: Setup Android SDK Natively
       uses: android-actions/setup-android@v3
       with:
-        api-level: 33
-        build-tools: 33.0.1
+        cmdline-tools-version: 9477386
 
     - name: Compile APK via Buildozer
       run: |
@@ -41,7 +46,7 @@ jobs:
         mkdir -p /home/runner/.buildozer/android/platform
         ln -s $ANDROID_HOME /home/runner/.buildozer/android/platform/android-sdk
         
-        # Accept licensing ahead of time
+        # Accept licensing ahead of time natively
         mkdir -p /home/runner/.buildozer/android/platform/android-sdk/licenses
         echo -e "\n893a5cd8b1e647af1d152de3ab0df356dd4ffb43\n24333f1a50b3b83d6e24c993f043e844a30e4130\n84831b9409646a918e30573bab4c9c91346d8abd" > /home/runner/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
         echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > /home/runner/.buildozer/android/platform/android-sdk/licenses/android-sdk-preview-license
