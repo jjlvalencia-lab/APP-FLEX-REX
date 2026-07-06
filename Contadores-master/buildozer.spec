@@ -7,7 +7,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,mp4,json
 version = 0.1
 
-# Requisitos limpios (Sin ffpyplayer para evitar fallos pesados de C/C++)
+# Requisitos limpios y estables
 requirements = python3,kivy==2.3.1,kivymd==1.2.0,plyer
 
 orientation = portrait
@@ -16,12 +16,13 @@ android.permissions = INTERNET,CAMERA,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORA
 icon.filename = logo_nuevo.png
 presplash.filename = logo_nuevo.png
 
-# Ajustes de arquitectura nativos de la plataforma
+# APIs Estándar
 android.archs = arm64-v8a
 android.api = 33
 android.minapi = 21
 
-# Dejar que el contenedor Docker gestione las versiones óptimas
+# Dejar en blanco para que use la descarga interna controlada por el parche del symlink
+android.ndk = 25b
 android.accept_sdk_license = True
 android.logcat_filters = *:S python:D
 
