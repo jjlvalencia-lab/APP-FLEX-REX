@@ -37,24 +37,18 @@ jobs:
 
     - name: Compile APK via Buildozer
       run: |
-        cd Contadores-master
-        
-        # Sincronizar de forma estricta las herramientas nativas preinstaladas
         export JAVA_HOME=$JAVA_HOME_17_X64
         export ANDROID_HOME=$ANDROID_SDK_ROOT
-        
-        # Agregar el sdkmanager moderno del sistema al PATH para que Buildozer lo encuentre sí o sí
         export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$JAVA_HOME/bin:$PATH
-        
-        # Limpiar referencias antiguas del NDK para evitar conflictos de API
+
         unset ANDROID_NDK
         unset ANDROID_NDK_HOME
         unset ANDROID_NDK_ROOT
-        
+
         ~/.local/bin/buildozer android debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: FlexRex-APK
-        path: Contadores-master/.buildozer/android/platform/build-arm64-v8a/dists/flexrex/build/outputs/apk/debug/*.apk
+        path: .buildozer/android/platform/build-arm64-v8a/dists/flexrex/build/outputs/apk/debug/*.apk

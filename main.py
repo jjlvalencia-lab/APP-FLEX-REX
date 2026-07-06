@@ -26,10 +26,9 @@ import json
 # ==========================================
 from plyer import accelerometer
 
-# Pide el permiso de cámara en Android en tiempo de ejecución
+# Import necesario para Android (el permiso se pide más adelante, en on_start)
 if platform == "android":
     from android.permissions import request_permissions, Permission
-    request_permissions([Permission.CAMERA])
 
 # Datos del usuario globales
 DATOS_USUARIO = {
@@ -1088,5 +1087,10 @@ class FlexRexApp(MDApp):
         sm.add_widget(PantallaConfirmacion(name='confirmacion'))
         return sm
 
+    def on_start(self):
+        if platform == "android":
+            request_permissions([Permission.CAMERA])
+
 if __name__ == "__main__":
     FlexRexApp().run()
+    
