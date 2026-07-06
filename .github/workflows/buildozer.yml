@@ -46,6 +46,10 @@ jobs:
         mkdir -p /home/runner/.buildozer/android/platform
         ln -s $ANDROID_HOME /home/runner/.buildozer/android/platform/android-sdk
         
+        # FIX: Link the modern cmdline-tools path to the legacy path Buildozer expects
+        mkdir -p /home/runner/.buildozer/android/platform/android-sdk/tools
+        ln -s /usr/local/lib/android/sdk/cmdline-tools/latest/bin /home/runner/.buildozer/android/platform/android-sdk/tools/bin
+        
         # Accept licensing ahead of time natively
         mkdir -p /home/runner/.buildozer/android/platform/android-sdk/licenses
         echo -e "\n893a5cd8b1e647af1d152de3ab0df356dd4ffb43\n24333f1a50b3b83d6e24c993f043e844a30e4130\n84831b9409646a918e30573bab4c9c91346d8abd" > /home/runner/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
