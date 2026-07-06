@@ -1,8 +1,10 @@
 name: Build Android APK with Buildozer
+
 on:
   push:
-    branches: [ maestro ]
+    branches: [ master ]
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -10,7 +12,7 @@ jobs:
     - name: Checkout repository code
       uses: actions/checkout@v4
 
-    - name: Set up JDK 17 y JDK 8
+    - name: Set up JDK 17 (Gradle) y JDK 8 (sdkmanager)
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
@@ -52,7 +54,6 @@ jobs:
 
     - name: Compile APK via Buildozer (con JDK 17)
       run: |
-        cd Contadores-master
         export JAVA_HOME=$JAVA_HOME_17_X64
         export ANDROID_WELCOME_SEEN=1
         ~/.local/bin/buildozer android debug
@@ -61,4 +62,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Flex-Rex-App
-        path: Contadores-master/.buildozer/android/platform/build-arm64-v8a/dists/flexrex/build/outputs/apk/debug/*.apk
+        path: .buildozer/android/platform/build-arm64-v8a/dists/flexrex/build/outputs/apk/debug/*.apk
