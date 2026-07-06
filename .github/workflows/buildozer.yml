@@ -31,22 +31,26 @@ jobs:
       run: |
         cd Contadores-master
         
-        # Aceptar licencias de Android automáticamente para que no pida (y/N)
+        # Crear estructura de configuración limpia y aceptar términos
         mkdir -p ~/.android
         touch ~/.android/repositories.cfg
         
-        # Si no existe buildozer.spec, lo inicializamos automáticamente
         if [ ! -f buildozer.spec ]; then
           ~/.local/bin/buildozer init
-          sed -i 's/title = My Application/title = Flex Rex/g' buildozer.spec
-          sed -i 's/requirements = python3,kivy/requirements = python3,kivy,opencv-python,mediapipe/g' buildozer.spec
-          sed -i 's/#android.permissions = CAMERA/android.permissions = CAMERA/g' buildozer.spec
-          # Forzar a Buildozer a aceptar licencias en modo no interactivo
-          sed -i 's/#android.accept_sdk_license = False/android.accept_sdk_license = True/g' buildozer.spec
-        else
-          sed -i 's/android.accept_sdk_license = False/android.accept_sdk_license = True/g' buildozer.spec
-          sed -i 's/#android.accept_sdk_license = False/android.accept_sdk_license = True/g' buildozer.spec
         fi
         
-        # Ejecutar compilación respondiendo "sí" automáticamente a cualquier otra pregunta interna
-        yes | ~/.local/bin/buildozer -v android debug
+        # Forzar la configuración interna del archivo .spec para que sea compatible
+        sed -i 's/title = My Application/title = Flex Rex/g' buildozer.spec
+        # Simplificamos requerimientos iniciales para asegurar el núcleo estable de la interfaz
+        sed -i 's/requirements = python3,kivy/requirements = python3,kivy==2.3.1,kivymd==1.2.0,opencv-python/g' buildozer.spec
+        sed -i 's/#android.permissions = CAMERA/android.permissions = CAMERA/g' buildozer.spec
+        
+        # Cambiar arquitectura a la estándar moderna de 64 bits para evitar conflictos antiguos
+        sed -i 's/android.archs = armeabi-v7a/android.archs = arm64-v8a/g' buildozer.spec
+        
+        # Forzar la aceptación automática de licencias de Android SDK
+        sed -i 's/android.accept_sdk_license = False/android.accept_sdk_license = True/g' buildozer.spec
+        sed -i 's/#android.accept_sdk_license = False/android.accept_sdk_license = True/g' buildozer.spec
+        
+        # Ejecutar compilación limpia sin usar el comando destructivo 'yes'
+        ~/.local/bin/buildozer android debug
